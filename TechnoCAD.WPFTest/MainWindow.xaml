@@ -5,8 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TechnoCAD.WPFTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="TechnoCAD.WPFTest" 
+        Height="600" 
+        Width="1000"
+        DataContext="{Binding MainWindowController}">
+    
+    <Grid>       
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0"
+                   Margin="5">
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Добавить здание" Command="{Binding AddBuilding}"
+                        Grid.Column="0"/>
+                
+                <Button Content="Добавить участок" Command="{Binding AddParcel}"
+                         Grid.Column="2"/>
+            </Grid>
+           
+            <ListView >
+                
+            </ListView>
+        </DockPanel>
+        <GridSplitter Width="3" 
+                      Background="White"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame Grid.Row="0"
+                   Margin="5"/>
+            <GridSplitter Height="3" Grid.Row="1"/>
+            <DataGrid Grid.Row="1"
+                      Margin="5"
+                      Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn/>
+                    <DataGridTextColumn/>
+                    <DataGridTextColumn/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>
