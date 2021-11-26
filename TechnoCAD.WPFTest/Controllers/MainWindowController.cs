@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TechnoCAD.WPFTest.Commons;
@@ -20,7 +16,12 @@ namespace TechnoCAD.WPFTest.Controllers
             ModelsItems.Add(abstractModel);
         }
 
-        public ICommand AddBuilding => new CommandHandler(() => AddModel(new Building { Id = Guid.NewGuid() }), () => true);
-        public ICommand AddParcel => new CommandHandler(() => AddModel(new Parcel { Id = Guid.NewGuid() }), () => true);
+        private ICommand addBuildingCommand;
+        public ICommand AddBuildingCommand => addBuildingCommand = 
+            addBuildingCommand ?? new CommandHandler(() => AddModel(new Building { Id = Guid.NewGuid() }), () => true);
+
+        private ICommand addParcelCommand;
+        public ICommand AddParcelCommand => addParcelCommand = 
+            addParcelCommand ?? new CommandHandler(() => AddModel(new Parcel { Id = Guid.NewGuid() }), () => true);
     }
 }

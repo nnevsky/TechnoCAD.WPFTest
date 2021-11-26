@@ -56,7 +56,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commons\CommandHandler.cs" />
+    <Compile Include="Controllers\BuildingPageController.cs" />
     <Compile Include="Controllers\MainWindowController.cs" />
+    <Compile Include="Controllers\ParcelPageController.cs" />
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\Parcel.cs" />
@@ -66,7 +68,7 @@
     <Compile Include="Views\Pages\ParcelPage.xaml.cs">
       <DependentUpon>ParcelPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -74,7 +76,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

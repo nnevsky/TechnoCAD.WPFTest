@@ -3,14 +3,37 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:control="clr-namespace:TechnoCAD.WPFTest.Controllers"
+        xmlns:type="clr-namespace:TechnoCAD.WPFTest.Models"
         xmlns:local="clr-namespace:TechnoCAD.WPFTest"
         mc:Ignorable="d"
         Title="TechnoCAD.WPFTest" 
         Height="600" 
-        Width="1000"
-        DataContext="{Binding MainWindowController}">
-    
-    <Grid>       
+        Width="1000">
+
+    <Window.DataContext>
+        <control:MainWindowController/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate x:Key="ModelItemsData" 
+                          DataType="{x:Type type:AbstractModel}">
+                <Border BorderBrush="Blue"
+                        BorderThickness="1"
+                        CornerRadius="2"
+                        Width="Auto"
+                        Tag="{Binding View}"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Title}" 
+                                   FontSize="12" 
+                                   FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Id}"/>
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
@@ -23,16 +46,18 @@
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Добавить здание" Command="{Binding AddBuilding}"
+                <Button Content="Добавить здание" Command="{Binding AddBuildingCommand}"
                         Grid.Column="0"/>
-                
-                <Button Content="Добавить участок" Command="{Binding AddParcel}"
-                         Grid.Column="2"/>
+
+                <Button Content="Добавить участок" Command="{Binding AddParcelCommand}"
+                        Grid.Column="2"/>
             </Grid>
-           
-            <ListView >
-                
-            </ListView>
+
+            <ListBox ItemsSource="{Binding ModelsItems}" 
+                     HorizontalContentAlignment="Stretch"
+                     SelectedItem="{Binding SelectedModel}"
+                     ItemTemplate="{DynamicResource ModelItemsData}"/>
+            
         </DockPanel>
         <GridSplitter Width="3" 
                       Background="White"/>
@@ -42,6 +67,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Frame Grid.Row="0"
+                   NavigationUIVisibility="Hidden"
                    Margin="5"/>
             <GridSplitter Height="3" Grid.Row="1"/>
             <DataGrid Grid.Row="1"
