@@ -14,5 +14,7 @@ namespace TechnoCAD.WPFTest.Models
         public Guid Id { get; set; }
 
         public abstract Page View { get; }
+
+        public abstract bool IsWrong { get; }
     }
 }

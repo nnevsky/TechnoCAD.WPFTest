@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:control="clr-namespace:TechnoCAD.WPFTest.Controllers"
         xmlns:type="clr-namespace:TechnoCAD.WPFTest.Models"
+        xmlns:pages="clr-namespace:TechnoCAD.WPFTest.Views.Pages"
         xmlns:local="clr-namespace:TechnoCAD.WPFTest"
         mc:Ignorable="d"
         Title="TechnoCAD.WPFTest" 
@@ -16,9 +17,10 @@
     </Window.DataContext>
     <Grid>
         <Grid.Resources>
-            <DataTemplate x:Key="ModelItemsData" 
+            <DataTemplate x:Key="ModelItemsData"
                           DataType="{x:Type type:AbstractModel}">
                 <Border BorderBrush="Blue"
+                        x:Name="SelectedModel"
                         BorderThickness="1"
                         CornerRadius="2"
                         Width="Auto"
@@ -53,30 +55,39 @@
                         Grid.Column="2"/>
             </Grid>
 
-            <ListBox ItemsSource="{Binding ModelsItems}" 
+            <ListBox x:Name="ModelListBox"
                      HorizontalContentAlignment="Stretch"
+                     ItemsSource="{Binding ModelsItems}" 
                      SelectedItem="{Binding SelectedModel}"
-                     ItemTemplate="{DynamicResource ModelItemsData}"/>
+                     ItemTemplate="{DynamicResource ModelItemsData}">
+                
+                
+            </ListBox>
             
         </DockPanel>
         <GridSplitter Width="3" 
                       Background="White"/>
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
             <Frame Grid.Row="0"
-                   NavigationUIVisibility="Hidden"
-                   Margin="5"/>
-            <GridSplitter Height="3" Grid.Row="1"/>
+                   VerticalAlignment="Stretch"
+                   HorizontalAlignment="Stretch"
+                   Content="{Binding EditPage,Mode=OneWay}"
+                   NavigationUIVisibility="Hidden"/>
+            
+            <GridSplitter Height="5" BorderThickness="5"
+                          Background="Black"
+                          Grid.Row="0"/>
             <DataGrid Grid.Row="1"
-                      Margin="5"
                       Background="White">
                 <DataGrid.Columns>
-                    <DataGridTextColumn/>
-                    <DataGridTextColumn/>
-                    <DataGridTextColumn/>
+                    <DataGridTextColumn Width="*"/>
+                    <DataGridTextColumn Width="*"/>
+                    <DataGridTextColumn Width="*"/>
                 </DataGrid.Columns>
 
             </DataGrid>

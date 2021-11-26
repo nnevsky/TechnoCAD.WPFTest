@@ -60,8 +60,8 @@
     <Compile Include="Controllers\MainWindowController.cs" />
     <Compile Include="Controllers\ParcelPageController.cs" />
     <Compile Include="Models\AbstractModel.cs" />
-    <Compile Include="Models\Building.cs" />
-    <Compile Include="Models\Parcel.cs" />
+    <Compile Include="Models\BuildingModel.cs" />
+    <Compile Include="Models\ParcelModel.cs" />
     <Compile Include="Views\Pages\BuildingPage.xaml.cs">
       <DependentUpon>BuildingPage.xaml</DependentUpon>
     </Compile>
@@ -115,9 +115,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
