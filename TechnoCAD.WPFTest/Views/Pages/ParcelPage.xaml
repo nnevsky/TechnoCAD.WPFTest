@@ -34,16 +34,5 @@
                      VerticalScrollBarVisibility="Visible"
                      AcceptsReturn="True"/>
         </DockPanel>
-        <!--<StackPanel Orientation="Vertical" Margin="5">
-            <TextBlock>Кадастровый номер</TextBlock>
-            <TextBox Text=""/>
-            <TextBlock >Адрес</TextBlock>
-            <Grid VerticalAlignment="Stretch">
-                <TextBox 
-                     TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Visible"
-                     AcceptsReturn="True"/>
-            </Grid>
-        </StackPanel>-->
     </Grid>
 </Page>

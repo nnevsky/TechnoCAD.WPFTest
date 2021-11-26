@@ -8,13 +8,15 @@
         xmlns:pages="clr-namespace:TechnoCAD.WPFTest.Views.Pages"
         xmlns:local="clr-namespace:TechnoCAD.WPFTest"
         mc:Ignorable="d"
+        WindowStyle="ThreeDBorderWindow"
         Title="TechnoCAD.WPFTest" 
         Height="600" 
         Width="1000">
-
+   
     <Window.DataContext>
         <control:MainWindowController/>
     </Window.DataContext>
+    
     <Grid>
         <Grid.Resources>
             <DataTemplate x:Key="ModelItemsData"
@@ -27,19 +29,32 @@
                         Tag="{Binding View}"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Title}" 
-                                   FontSize="12" 
-                                   FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Id}"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical"
+                                    Grid.Row="0">
+                            <TextBlock Text="{Binding Title}" 
+                                       FontSize="12" 
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Id}"/>
+                        </StackPanel>
+                        <Image Grid.Row="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Source="{Binding Pic}"/>
+                    </Grid>
+                  
                 </Border>
             </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
+       
         <DockPanel Grid.Column="0"
                    Margin="5">
             <Grid DockPanel.Dock="Top">
@@ -60,8 +75,7 @@
                      ItemsSource="{Binding ModelsItems}" 
                      SelectedItem="{Binding SelectedModel}"
                      ItemTemplate="{DynamicResource ModelItemsData}">
-                
-                
+
             </ListBox>
             
         </DockPanel>
@@ -83,11 +97,16 @@
                           Background="Black"
                           Grid.Row="0"/>
             <DataGrid Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      RowHeaderWidth="0"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding WrongItems}"
                       Background="White">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*"/>
-                    <DataGridTextColumn Width="*"/>
-                    <DataGridTextColumn Width="*"/>
+                    <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Field" Width="*" Binding="{Binding Field}"/>
+                    <DataGridTextColumn Header="Message" Width="*" Binding="{Binding Message}"/>
+                    
                 </DataGrid.Columns>
 
             </DataGrid>

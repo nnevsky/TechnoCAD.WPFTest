@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+using System.Drawing;
 
 namespace TechnoCAD.WPFTest.Models
 {
@@ -12,9 +8,10 @@ namespace TechnoCAD.WPFTest.Models
         public abstract string Title { get; }
 
         public Guid Id { get; set; }
-
-        public abstract Page View { get; }
+      
 
         public abstract bool IsWrong { get; }
+
+        public Bitmap Pic => Properties.Resources.wrong;
     }
 }

@@ -4,10 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TechnoCAD.WPFTest.Models;
 
 namespace TechnoCAD.WPFTest.Controllers
 {
-    public class BuildingPageController : DependencyObject
+    class BuildingPageController : DependencyObject
     {
+        private BuildingModel model;
+        public BuildingPageController(BuildingModel model)
+        {
+            this.model = model;
+        }
     }
 }

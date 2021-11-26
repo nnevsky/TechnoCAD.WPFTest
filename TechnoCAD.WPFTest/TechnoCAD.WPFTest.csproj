@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,12 +57,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commons\CommandHandler.cs" />
+    <Compile Include="Commons\ModelFactory.cs" />
     <Compile Include="Controllers\BuildingPageController.cs" />
     <Compile Include="Controllers\MainWindowController.cs" />
     <Compile Include="Controllers\ParcelPageController.cs" />
+    <Compile Include="Interfaces\IViewAdapter.cs" />
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\BuildingModel.cs" />
     <Compile Include="Models\ParcelModel.cs" />
+    <Compile Include="Models\WrongModel.cs" />
     <Compile Include="Views\Pages\BuildingPage.xaml.cs">
       <DependentUpon>BuildingPage.xaml</DependentUpon>
     </Compile>
@@ -116,5 +120,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\building.png" />
+    <Resource Include="Assets\delete.png" />
+    <Resource Include="Assets\parcel.png" />
+    <Resource Include="Assets\wrong.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
