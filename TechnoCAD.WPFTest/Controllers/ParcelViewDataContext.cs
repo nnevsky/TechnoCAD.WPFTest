@@ -5,11 +5,11 @@ using TechnoCAD.WPFTest.Models;
 
 namespace TechnoCAD.WPFTest.Controllers
 {
-    class ParcelPageController : DependencyObject
+    class ParcelViewDataContext : DependencyObject
     {
         private ParcelModel model;
         private IAllertGenerator allertGenerator;
-        public ParcelPageController(ParcelModel model, IAllertGenerator allertGenerator)
+        public ParcelViewDataContext(ParcelModel model, IAllertGenerator allertGenerator)
         {
             this.model = model;
             this.allertGenerator = allertGenerator;

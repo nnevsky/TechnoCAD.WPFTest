@@ -4,10 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:control="clr-namespace:TechnoCAD.WPFTest.Controllers"
-        xmlns:commons="clr-namespace:TechnoCAD.WPFTest.Commons"
         xmlns:type="clr-namespace:TechnoCAD.WPFTest.Models"
-        xmlns:pages="clr-namespace:TechnoCAD.WPFTest.Views.Pages"
-        xmlns:local="clr-namespace:TechnoCAD.WPFTest"
         mc:Ignorable="d"
         WindowStyle="ThreeDBorderWindow"
         Title="TechnoCAD.WPFTest" 
@@ -15,12 +12,10 @@
         Width="1000">
    
     <Window.DataContext>
-        <control:MainWindowController/>
-        
+        <control:MainWindowDataContext/>        
     </Window.DataContext>
    
-    <Grid>
-       
+    <Grid>       
         <Grid.Resources>
             <DataTemplate x:Key="ModelItemsData"
                           DataType="{x:Type type:AbstractModel}">
@@ -49,8 +44,13 @@
                                VerticalAlignment="Center"
                                Source="{Binding PicSource}"/>
                     </Grid>
-                  
+                    <!--<Border.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Удалить_" Command="{Binding DeleteCommand}"/>
+                        </ContextMenu>
+                    </Border.ContextMenu>-->
                 </Border>
+
             </DataTemplate>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
@@ -78,6 +78,8 @@
                      ItemsSource="{Binding ModelsItems}" 
                      SelectedItem="{Binding SelectedModel}"
                      ItemTemplate="{DynamicResource ModelItemsData}" >
+
+               
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Удалить_" Command="{Binding DeleteCommand}"/>

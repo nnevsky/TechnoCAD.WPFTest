@@ -23,10 +23,10 @@ namespace TechnoCAD.WPFTest.Models
     {
         public ParcelViewAdapter(IAllertGenerator allertGenerator)
         { 
-            view = new Lazy<ParcelPage>(() => new ParcelPage { DataContext = new ParcelPageController(this, allertGenerator) });
+            view = new Lazy<ParcelView>(() => new ParcelView { DataContext = new ParcelViewDataContext(this, allertGenerator) });
         }
         public Page View => view.Value;
-        private Lazy<ParcelPage> view;
+        private Lazy<ParcelView> view;
 
         public string PicSource => IsWrong ? @"pack://application:,,,/Assets\wrong.png" 
                                     : @"pack://application:,,,/Assets\parcel.png";

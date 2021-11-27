@@ -12,6 +12,7 @@ namespace TechnoCAD.WPFTest.Commons
             _action = action;
             _canExecute = canExecute;
         }
+       
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }

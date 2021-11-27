@@ -4,12 +4,12 @@ using TechnoCAD.WPFTest.Models;
 
 namespace TechnoCAD.WPFTest.Controllers
 {
-    class BuildingPageController : DependencyObject
+    class BuildingViewDataContext : DependencyObject
     {
         private BuildingModel model;
         private IAllertGenerator allertGenerator;
 
-        public BuildingPageController(BuildingModel model, IAllertGenerator allertGenerator)
+        public BuildingViewDataContext(BuildingModel model, IAllertGenerator allertGenerator)
         {
             this.model = model;
             this.allertGenerator = allertGenerator;

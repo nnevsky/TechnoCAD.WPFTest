@@ -12,7 +12,7 @@ using TechnoCAD.WPFTest.Models;
 
 namespace TechnoCAD.WPFTest.Controllers
 {
-    class MainWindowController : DependencyObject, INotifyPropertyChanged, IAllertGenerator
+    class MainWindowDataContext : DependencyObject, INotifyPropertyChanged, IAllertGenerator
     {
         public ObservableCollection<AbstractModel> ModelsItems { get; set; } = new ObservableCollection<AbstractModel>();
         public ObservableCollection<AllertModel> AllertItems { get; set; } = new ObservableCollection<AllertModel>();
@@ -53,7 +53,8 @@ namespace TechnoCAD.WPFTest.Controllers
             }
         }
         private ICommand deleteCommand;
-        public ICommand DeleteCommand => deleteCommand = deleteCommand ?? new CommandHandler(() => DeleteModel(SelectedModel), () => true);
+        public ICommand DeleteCommand => deleteCommand = 
+            deleteCommand ?? new CommandHandler(() => DeleteModel(SelectedModel), () => SelectedModel != null);//
 
         private ICommand addBuildingCommand;
         public ICommand AddBuildingCommand => addBuildingCommand = 

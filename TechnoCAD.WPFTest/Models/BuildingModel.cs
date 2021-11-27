@@ -49,10 +49,10 @@ namespace TechnoCAD.WPFTest.Models
     {
         public BuildingViewAdapter(IAllertGenerator allertGenerator)
         {
-            view = new Lazy<BuildingPage>(() => new BuildingPage { DataContext = new BuildingPageController(this, allertGenerator) });
+            view = new Lazy<BuildingView>(() => new BuildingView { DataContext = new BuildingViewDataContext(this, allertGenerator) });
         }
         public Page View => view.Value;
-        private Lazy<BuildingPage> view;
+        private Lazy<BuildingView> view;
 
         public string PicSource => IsWrong ? @"pack://application:,,,/Assets\wrong.png" 
                                           : @"pack://application:,,,/Assets\building.png";
