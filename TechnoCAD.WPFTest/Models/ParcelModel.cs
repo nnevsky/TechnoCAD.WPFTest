@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Drawing;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Controls;
 using TechnoCAD.WPFTest.Controllers;
 using TechnoCAD.WPFTest.Interfaces;
@@ -18,16 +19,42 @@ namespace TechnoCAD.WPFTest.Models
 
     }
 
-    class ParcelViewAdapter : ParcelModel, IViewAdapter
+    class ParcelViewAdapter : ParcelModel, IViewAdapter, IAllertAdapter, INotifyPropertyChanged
     {
-        public ParcelViewAdapter()
+        public ParcelViewAdapter(IAllertGenerator allertGenerator)
         { 
-            view = new Lazy<ParcelPage>(() => new ParcelPage { DataContext = new ParcelPageController(this) });
+            view = new Lazy<ParcelPage>(() => new ParcelPage { DataContext = new ParcelPageController(this, allertGenerator) });
         }
         public Page View => view.Value;
         private Lazy<ParcelPage> view;
 
-        public Bitmap Pic => Properties.Resources.wrong;// IsWrong ? Properties.Resources.wrong : null;
+        public string PicSource => IsWrong ? @"pack://application:,,,/Assets\wrong.png" 
+                                    : @"pack://application:,,,/Assets\parcel.png";
+
+        public IEnumerable<AllertModel> Allerts
+        {
+            get
+            {
+                List<AllertModel> allerts = new List<AllertModel>();
+                if(string.IsNullOrEmpty(Number))
+                {
+                    allerts.Add(new AllertModel { Id = base.Id, Field = nameof(Number), Message = "Задайте номер участка" });
+                }
+                if(string.IsNullOrEmpty(Location))
+                {
+                    allerts.Add(new AllertModel { Id = base.Id, Field = nameof(Location), Message = "Задайте расположение участка" });
+                }
+
+                OnPropertyChanged(nameof(PicSource));
+
+                return allerts;
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propMane)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propMane));
+        }
     }
 
 }

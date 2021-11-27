@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -10,23 +12,56 @@ using TechnoCAD.WPFTest.Models;
 
 namespace TechnoCAD.WPFTest.Controllers
 {
-    class MainWindowController : DependencyObject, INotifyPropertyChanged
+    class MainWindowController : DependencyObject, INotifyPropertyChanged, IAllertGenerator
     {
         public ObservableCollection<AbstractModel> ModelsItems { get; set; } = new ObservableCollection<AbstractModel>();
-        public ObservableCollection<WrongModel> WrongItems { get; set; } = new ObservableCollection<WrongModel>();
+        public ObservableCollection<AllertModel> AllertItems { get; set; } = new ObservableCollection<AllertModel>();
 
         private void AddModel(AbstractModel abstractModel)
         {
             ModelsItems.Add(abstractModel);
+
+            GenerateAllerts();
         }
+        private void DeleteModel(AbstractModel model)
+        {
+            ModelsItems.Remove(model);
+
+            GenerateAllerts();
+        }
+
+        public void GenerateAllerts()
+        {
+            var allerts = new List<AllertModel>();
+            foreach (var item in ModelsItems)
+            {
+                foreach (var allert in (item as IAllertAdapter).Allerts)
+                {
+                    allerts.Add(allert);
+                }
+            }
+            AllertItems = new ObservableCollection<AllertModel>(allerts);
+
+            OnPropertyChanged(nameof(AllertItems));
+        }
+
+        public AllertModel SelectedAllert 
+        { 
+            set
+            {
+                SelectedModel = value != null ? ModelsItems.Where(x => x.Id == value.Id).FirstOrDefault() : null;
+            }
+        }
+        private ICommand deleteCommand;
+        public ICommand DeleteCommand => deleteCommand = deleteCommand ?? new CommandHandler(() => DeleteModel(SelectedModel), () => true);
 
         private ICommand addBuildingCommand;
         public ICommand AddBuildingCommand => addBuildingCommand = 
-            addBuildingCommand ?? new CommandHandler(() => AddModel(new BuildingViewAdapter { Id = Guid.NewGuid() }), () => true);
+            addBuildingCommand ?? new CommandHandler(() => AddModel(new BuildingViewAdapter(this) { Id = Guid.NewGuid() }), () => true);
 
         private ICommand addParcelCommand;
         public ICommand AddParcelCommand => addParcelCommand = 
-            addParcelCommand ?? new CommandHandler(() => AddModel(new ParcelViewAdapter { Id = Guid.NewGuid() }), () => true);
+            addParcelCommand ?? new CommandHandler(() => AddModel(new ParcelViewAdapter(this) { Id = Guid.NewGuid() }), () => true);
 
         private AbstractModel selectedModel;
         public AbstractModel SelectedModel
@@ -35,7 +70,10 @@ namespace TechnoCAD.WPFTest.Controllers
             set
             {
                 selectedModel = value;
-                EditPage = (selectedModel as IViewAdapter).View;
+                OnPropertyChanged(nameof(SelectedModel));
+                
+                if(selectedModel != null)
+                    EditPage = (selectedModel as IViewAdapter).View;
             }
         }
 

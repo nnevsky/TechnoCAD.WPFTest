@@ -6,6 +6,6 @@ namespace TechnoCAD.WPFTest.Interfaces
     interface IViewAdapter
     {
         Page View { get; }
-        Bitmap Pic { get; }
+        string PicSource { get; }
     }
 }

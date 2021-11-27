@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:control="clr-namespace:TechnoCAD.WPFTest.Controllers"
+        xmlns:commons="clr-namespace:TechnoCAD.WPFTest.Commons"
         xmlns:type="clr-namespace:TechnoCAD.WPFTest.Models"
         xmlns:pages="clr-namespace:TechnoCAD.WPFTest.Views.Pages"
         xmlns:local="clr-namespace:TechnoCAD.WPFTest"
@@ -15,9 +16,11 @@
    
     <Window.DataContext>
         <control:MainWindowController/>
+        
     </Window.DataContext>
-    
+   
     <Grid>
+       
         <Grid.Resources>
             <DataTemplate x:Key="ModelItemsData"
                           DataType="{x:Type type:AbstractModel}">
@@ -35,16 +38,16 @@
                             <ColumnDefinition Width="20"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Vertical"
-                                    Grid.Row="0">
+                                    Grid.Column="0">
                             <TextBlock Text="{Binding Title}" 
                                        FontSize="12" 
                                        FontWeight="Bold"/>
                             <TextBlock Text="{Binding Id}"/>
                         </StackPanel>
-                        <Image Grid.Row="1"
-                               HorizontalAlignment="Center"
+                        <Image Grid.Column="1" Margin="0,0,3,0"
+                               HorizontalAlignment="Right"
                                VerticalAlignment="Center"
-                               Source="{Binding Pic}"/>
+                               Source="{Binding PicSource}"/>
                     </Grid>
                   
                 </Border>
@@ -74,7 +77,12 @@
                      HorizontalContentAlignment="Stretch"
                      ItemsSource="{Binding ModelsItems}" 
                      SelectedItem="{Binding SelectedModel}"
-                     ItemTemplate="{DynamicResource ModelItemsData}">
+                     ItemTemplate="{DynamicResource ModelItemsData}" >
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Удалить_" Command="{Binding DeleteCommand}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
 
             </ListBox>
             
@@ -98,13 +106,21 @@
                           Grid.Row="0"/>
             <DataGrid Grid.Row="1"
                       AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedAllert, Mode=OneWayToSource}"
                       RowHeaderWidth="0"
                       IsReadOnly="True"
-                      ItemsSource="{Binding WrongItems}"
+                      ItemsSource="{Binding AllertItems}"
                       Background="White">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Width="*" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Field" Width="*" Binding="{Binding Field}"/>
+                    <DataGridTemplateColumn Header="pic" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="pack://application:,,,/Assets\wrong.png"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Id" Width="Auto" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Field" Width="Auto" Binding="{Binding Field}"/>
                     <DataGridTextColumn Header="Message" Width="*" Binding="{Binding Message}"/>
                     
                 </DataGrid.Columns>

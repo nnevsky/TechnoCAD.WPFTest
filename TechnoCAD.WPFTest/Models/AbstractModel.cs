@@ -12,6 +12,5 @@ namespace TechnoCAD.WPFTest.Models
 
         public abstract bool IsWrong { get; }
 
-        public Bitmap Pic => Properties.Resources.wrong;
     }
 }

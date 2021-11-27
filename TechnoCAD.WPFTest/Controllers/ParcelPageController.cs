@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
+using TechnoCAD.WPFTest.Interfaces;
 using TechnoCAD.WPFTest.Models;
 
 namespace TechnoCAD.WPFTest.Controllers
@@ -6,9 +8,36 @@ namespace TechnoCAD.WPFTest.Controllers
     class ParcelPageController : DependencyObject
     {
         private ParcelModel model;
-        public ParcelPageController(ParcelModel model)
+        private IAllertGenerator allertGenerator;
+        public ParcelPageController(ParcelModel model, IAllertGenerator allertGenerator)
         {
             this.model = model;
+            this.allertGenerator = allertGenerator;
+        }
+
+        public string Number 
+        {
+            get => model.Number;
+            set
+            {
+                model.Number = value;
+                allertGenerator.GenerateAllerts();
+            }
+        }
+        public string Location 
+        {
+            get => model.Location;
+            set
+            {
+                model.Location = value;
+                allertGenerator.GenerateAllerts();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propMane)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propMane));
         }
     }
 }
