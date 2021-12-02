@@ -24,11 +24,15 @@
         </Grid.Resources>
         <StackPanel Orientation="Vertical"
                     Margin="5">
-            <TextBlock>Количество этажей</TextBlock>
-            <TextBox Text="{Binding FloorCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="TextBox_PreviewTextInput"/>
-            <TextBlock >Адрес</TextBlock>
-            <TextBox Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox IsChecked="{Binding IsLiving}">Жилое помещение</CheckBox>
+            <Label>Количество этажей</Label>
+            <TextBox x:Name="BuildFloorCount" 
+                     Text="{Binding FloorCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     PreviewTextInput="TextBox_PreviewTextInput"/>
+            <Label>Адрес</Label>
+            <TextBox x:Name="BuildAddress" 
+                     Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox x:Name="BuildIsLiving" 
+                      IsChecked="{Binding IsLiving}">Жилое помещение</CheckBox>
         </StackPanel>
     </Grid>
 </Page>

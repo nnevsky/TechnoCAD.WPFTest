@@ -13,13 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TechnoCAD.WPFTest.Interfaces;
 
 namespace TechnoCAD.WPFTest.Views.Pages
 {
     /// <summary>
     /// Interaction logic for BuildingPage.xaml
     /// </summary>
-    public partial class BuildingView : Page
+    public partial class BuildingView : Page, IBuildingFocus
     {
         public BuildingView()
         {
@@ -30,6 +31,20 @@ namespace TechnoCAD.WPFTest.Views.Pages
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        public void FloorCountFocus()
+        {
+            BuildFloorCount.Focus();
+        }
+        public void AddressFocus()
+        {
+            BuildAddress.Focus();
+        }
+
+        public void IsLivingFocus()
+        {
+            BuildIsLiving.Focus();
         }
     }
 }

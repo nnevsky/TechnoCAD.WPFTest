@@ -8,8 +8,8 @@ namespace TechnoCAD.WPFTest.Controllers
     class ParcelViewDataContext : DependencyObject
     {
         private ParcelModel model;
-        private IAllertGenerator allertGenerator;
-        public ParcelViewDataContext(ParcelModel model, IAllertGenerator allertGenerator)
+        private IAlertGenerator allertGenerator;
+        public ParcelViewDataContext(ParcelModel model, IAlertGenerator allertGenerator)
         {
             this.model = model;
             this.allertGenerator = allertGenerator;
@@ -21,7 +21,7 @@ namespace TechnoCAD.WPFTest.Controllers
             set
             {
                 model.Number = value;
-                allertGenerator.GenerateAllerts();
+                allertGenerator.GenerateAlerts();
             }
         }
         public string Location 
@@ -30,7 +30,7 @@ namespace TechnoCAD.WPFTest.Controllers
             set
             {
                 model.Location = value;
-                allertGenerator.GenerateAllerts();
+                allertGenerator.GenerateAlerts();
             }
         }
 

@@ -57,18 +57,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commons\CommandHandler.cs" />
-    <Compile Include="Commons\ImageToSourceConverter.cs" />
-    <Compile Include="Commons\ModelFactory.cs" />
     <Compile Include="Controllers\BuildingViewDataContext.cs" />
     <Compile Include="Controllers\MainWindowDataContext.cs" />
     <Compile Include="Controllers\ParcelViewDataContext.cs" />
-    <Compile Include="Interfaces\IAllertAdapter.cs" />
-    <Compile Include="Interfaces\IAllertGenerator.cs" />
+    <Compile Include="Interfaces\IAlertAdapter.cs" />
+    <Compile Include="Interfaces\IAlertGenerator.cs" />
+    <Compile Include="Interfaces\IBuildingFocus.cs" />
+    <Compile Include="Interfaces\IParcelFocus.cs" />
     <Compile Include="Interfaces\IViewAdapter.cs" />
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\BuildingModel.cs" />
     <Compile Include="Models\ParcelModel.cs" />
-    <Compile Include="Models\AllertModel.cs" />
+    <Compile Include="Models\Alerts\AlertModel.cs" />
     <Compile Include="Views\Pages\BuildingView.xaml.cs">
       <DependentUpon>BuildingView.xaml</DependentUpon>
     </Compile>

@@ -24,9 +24,11 @@
         </Grid.Resources>
         <DockPanel Margin="5">
             <TextBlock DockPanel.Dock="Top">Кадастровый номер</TextBlock>
-            <TextBox Text="{Binding Number}" DockPanel.Dock="Top"/>
+            <TextBox x:Name="ParcelNumber" Text="{Binding Number}" 
+                     DockPanel.Dock="Top"/>
             <TextBlock DockPanel.Dock="Top">Адрес</TextBlock>
-            <TextBox DockPanel.Dock="Top"
+            <TextBox x:Name="ParcelLocation"
+                     DockPanel.Dock="Top"
                      Text="{Binding Location}"
                      TextWrapping="Wrap"
                      VerticalScrollBarVisibility="Visible"

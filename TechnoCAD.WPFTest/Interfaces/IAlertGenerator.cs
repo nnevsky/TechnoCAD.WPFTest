@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TechnoCAD.WPFTest.Interfaces
 {
-    interface IAllertGenerator
+    interface IAlertGenerator
     {
-        void GenerateAllerts();
+        void GenerateAlerts();
     }
 }

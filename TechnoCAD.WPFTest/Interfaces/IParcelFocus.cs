@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TechnoCAD.WPFTest.Commons
+namespace TechnoCAD.WPFTest.Interfaces
 {
-    class ModelFactory
+    interface IParcelFocus
     {
-
+        void ParcelNamberFocus();
+        void ParcelLocationFocus();
     }
 }

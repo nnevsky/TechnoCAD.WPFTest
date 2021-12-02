@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Controls;
 using TechnoCAD.WPFTest.Controllers;
 using TechnoCAD.WPFTest.Interfaces;
+using TechnoCAD.WPFTest.Models.Alerts;
 using TechnoCAD.WPFTest.Views.Pages;
 
 namespace TechnoCAD.WPFTest.Models
@@ -15,7 +15,6 @@ namespace TechnoCAD.WPFTest.Models
         private bool? isLiving;
 
         public override string Title => "Building";
-
 
         public int? FloorCount
         {
@@ -45,34 +44,34 @@ namespace TechnoCAD.WPFTest.Models
         public override bool IsWrong => !FloorCount.HasValue || string.IsNullOrEmpty(Address) || !IsLiving.HasValue;
     }
 
-    class BuildingViewAdapter : BuildingModel, IViewAdapter, IAllertAdapter, INotifyPropertyChanged
+    class BuildingViewAdapter : BuildingModel, IViewAdapter, IAlertAdapter, INotifyPropertyChanged
     {
-        public BuildingViewAdapter(IAllertGenerator allertGenerator)
+        public BuildingViewAdapter(IAlertGenerator allertGenerator)
         {
-            view = new Lazy<BuildingView>(() => new BuildingView { DataContext = new BuildingViewDataContext(this, allertGenerator) });
+            view = new BuildingView { DataContext = new BuildingViewDataContext(this, allertGenerator) };
         }
-        public Page View => view.Value;
-        private Lazy<BuildingView> view;
+        public Page View => view;
+        private BuildingView view;
 
         public string PicSource => IsWrong ? @"pack://application:,,,/Assets\wrong.png" 
                                           : @"pack://application:,,,/Assets\building.png";
 
-        public IEnumerable<AllertModel> Allerts
+        public IEnumerable<AlertModel> Allerts
         {
             get
             {
-                List<AllertModel> allerts = new List<AllertModel>();
+                List<AlertModel> allerts = new List<AlertModel>();
                 if (!FloorCount.HasValue)
                 {
-                    allerts.Add(new AllertModel { Id = base.Id, Field = nameof(FloorCount), Message = "Задайте количество этажей здания" });
+                    allerts.Add(new AlertBuildingFloorCount(view) { Id = Id, Field = nameof(FloorCount) });
                 }
                 if (string.IsNullOrEmpty(Address))
                 {
-                    allerts.Add(new AllertModel { Id = base.Id, Field = nameof(Address), Message = "Задайте адрес расположение здания" });
+                    allerts.Add(new AlertBuildingAddress(view) { Id = Id, Field = nameof(Address) });
                 }
                 if (!IsLiving.HasValue)
                 {
-                    allerts.Add(new AllertModel { Id = base.Id, Field = nameof(IsLiving), Message = "Укажите жилое или нежилое помещение" });
+                    allerts.Add(new AlertBuildingIsLiving(view) { Id = Id, Field = nameof(IsLiving) });
                 }
 
                 OnPropertyChanged(nameof(PicSource));

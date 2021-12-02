@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechnoCAD.WPFTest.Models;
+using TechnoCAD.WPFTest.Models.Alerts;
 
 namespace TechnoCAD.WPFTest.Interfaces
 {
-    interface IAllertAdapter
+    interface IAlertAdapter
     {
-        IEnumerable<AllertModel> Allerts { get; }
+        IEnumerable<AlertModel> Allerts { get; }
     }
 }

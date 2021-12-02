@@ -7,9 +7,9 @@ namespace TechnoCAD.WPFTest.Controllers
     class BuildingViewDataContext : DependencyObject
     {
         private BuildingModel model;
-        private IAllertGenerator allertGenerator;
+        private IAlertGenerator allertGenerator;
 
-        public BuildingViewDataContext(BuildingModel model, IAllertGenerator allertGenerator)
+        public BuildingViewDataContext(BuildingModel model, IAlertGenerator allertGenerator)
         {
             this.model = model;
             this.allertGenerator = allertGenerator;
@@ -21,7 +21,7 @@ namespace TechnoCAD.WPFTest.Controllers
             set
             {
                 model.FloorCount = value;
-                allertGenerator.GenerateAllerts();
+                allertGenerator.GenerateAlerts();
             }
         }
         public string Address
@@ -30,7 +30,7 @@ namespace TechnoCAD.WPFTest.Controllers
             set
             {
                 model.Address = value;
-                allertGenerator.GenerateAllerts();
+                allertGenerator.GenerateAlerts();
             }
         }
         public bool? IsLiving
@@ -39,7 +39,7 @@ namespace TechnoCAD.WPFTest.Controllers
             set
             {
                 model.IsLiving = value;
-                allertGenerator.GenerateAllerts();
+                allertGenerator.GenerateAlerts();
             }
         }
 

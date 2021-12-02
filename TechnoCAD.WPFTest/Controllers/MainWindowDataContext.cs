@@ -9,47 +9,49 @@ using System.Windows.Input;
 using TechnoCAD.WPFTest.Commons;
 using TechnoCAD.WPFTest.Interfaces;
 using TechnoCAD.WPFTest.Models;
+using TechnoCAD.WPFTest.Models.Alerts;
 
 namespace TechnoCAD.WPFTest.Controllers
 {
-    class MainWindowDataContext : DependencyObject, INotifyPropertyChanged, IAllertGenerator
+    class MainWindowDataContext : DependencyObject, INotifyPropertyChanged, IAlertGenerator
     {
         public ObservableCollection<AbstractModel> ModelsItems { get; set; } = new ObservableCollection<AbstractModel>();
-        public ObservableCollection<AllertModel> AllertItems { get; set; } = new ObservableCollection<AllertModel>();
+        public ObservableCollection<AlertModel> AllertItems { get; set; } = new ObservableCollection<AlertModel>();
 
         private void AddModel(AbstractModel abstractModel)
         {
             ModelsItems.Add(abstractModel);
 
-            GenerateAllerts();
+            GenerateAlerts();
         }
         private void DeleteModel(AbstractModel model)
         {
             ModelsItems.Remove(model);
 
-            GenerateAllerts();
+            GenerateAlerts();
         }
 
-        public void GenerateAllerts()
+        public void GenerateAlerts()
         {
-            var allerts = new List<AllertModel>();
+            var allerts = new List<AlertModel>();
             foreach (var item in ModelsItems)
             {
-                foreach (var allert in (item as IAllertAdapter).Allerts)
+                foreach (var allert in (item as IAlertAdapter).Allerts)
                 {
                     allerts.Add(allert);
                 }
             }
-            AllertItems = new ObservableCollection<AllertModel>(allerts);
+            AllertItems = new ObservableCollection<AlertModel>(allerts);
 
             OnPropertyChanged(nameof(AllertItems));
         }
 
-        public AllertModel SelectedAllert 
+        public AlertModel SelectedAllert 
         { 
             set
             {
-                SelectedModel = value != null ? ModelsItems.Where(x => x.Id == value.Id).FirstOrDefault() : null;
+                SelectedModel = value != null ? ModelsItems.FirstOrDefault(x => x.Id == value.Id) : null;
+                value?.OnSelected();
             }
         }
         private ICommand deleteCommand;

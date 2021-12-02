@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using TechnoCAD.WPFTest.Controllers;
 using TechnoCAD.WPFTest.Interfaces;
+using TechnoCAD.WPFTest.Models.Alerts;
 using TechnoCAD.WPFTest.Views.Pages;
 
 namespace TechnoCAD.WPFTest.Models
@@ -19,30 +20,30 @@ namespace TechnoCAD.WPFTest.Models
 
     }
 
-    class ParcelViewAdapter : ParcelModel, IViewAdapter, IAllertAdapter, INotifyPropertyChanged
+    class ParcelViewAdapter : ParcelModel, IViewAdapter, IAlertAdapter, INotifyPropertyChanged
     {
-        public ParcelViewAdapter(IAllertGenerator allertGenerator)
+        public ParcelViewAdapter(IAlertGenerator allertGenerator)
         { 
-            view = new Lazy<ParcelView>(() => new ParcelView { DataContext = new ParcelViewDataContext(this, allertGenerator) });
+            view = new ParcelView { DataContext = new ParcelViewDataContext(this, allertGenerator) };
         }
-        public Page View => view.Value;
-        private Lazy<ParcelView> view;
+        public Page View => view;
+        private ParcelView view;
 
         public string PicSource => IsWrong ? @"pack://application:,,,/Assets\wrong.png" 
                                     : @"pack://application:,,,/Assets\parcel.png";
 
-        public IEnumerable<AllertModel> Allerts
+        public IEnumerable<AlertModel> Allerts
         {
             get
             {
-                List<AllertModel> allerts = new List<AllertModel>();
+                List<AlertModel> allerts = new List<AlertModel>();
                 if(string.IsNullOrEmpty(Number))
                 {
-                    allerts.Add(new AllertModel { Id = base.Id, Field = nameof(Number), Message = "Задайте номер участка" });
+                    allerts.Add(new AlertParcelNumber(view) { Id = base.Id, Field = nameof(Number) });
                 }
                 if(string.IsNullOrEmpty(Location))
                 {
-                    allerts.Add(new AllertModel { Id = base.Id, Field = nameof(Location), Message = "Задайте расположение участка" });
+                    allerts.Add(new AlertParcelLocation(view) { Id = base.Id, Field = nameof(Location) });
                 }
 
                 OnPropertyChanged(nameof(PicSource));

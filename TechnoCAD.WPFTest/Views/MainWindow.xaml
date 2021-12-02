@@ -114,7 +114,7 @@
                       ItemsSource="{Binding AllertItems}"
                       Background="White">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="pic" Width="auto">
+                    <DataGridTemplateColumn Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="pack://application:,,,/Assets\wrong.png"/>
